@@ -5,7 +5,7 @@
  */
 
 import { createContext, useState } from "react";
-import { loginUser, registerUser } from "../services/AuthService";
+import { loginUser, registerUser, logoutUser, checkUserSession } from "../services/AuthService";
 import { User } from "../models/User";
 
 // A type to to represent our context
@@ -15,6 +15,8 @@ interface AuthContextType {
   register: (email:string, password:string,firstName: string,
     lastName: string,
     phoneNumber: string ) => Promise<void>;
+  logout: () => Promise<void>;
+  checkSession: () => Promise<boolean>;
 }
 
 // 1) Create a new context with an initial value of null
@@ -62,6 +64,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const logout = async () => {
+    const response = await logoutUser();
+    if(response.ok){
+      setUser(null);
+    }
+  }
+
+  const checkSession = async () => {
+    const response = await checkUserSession();
+    if(response.ok){
+      const userData = await response.json();
+      setUser(userData);
+      return true;
+    } else {
+      setUser(null);
+      return false;
+    }
+  }
+
   /**
    * We wrap our app (children) in AuthContext.Provider,
    * passing { user, login } as the value.
@@ -69,7 +90,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * to access or update user data (through login).
    */
   return (
-    <AuthContext.Provider value={{ user, login, register }}>
+    <AuthContext.Provider value={{ user, login, register, logout, checkSession }}>
       {children}
     </AuthContext.Provider>
   );

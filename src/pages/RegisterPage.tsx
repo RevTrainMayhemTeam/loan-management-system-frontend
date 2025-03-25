@@ -18,7 +18,7 @@ export const RegisterPage = () => {
   const registerHandler = async () => {
     try {
       await register(email, password, firstName, lastName, phoneNumber);
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

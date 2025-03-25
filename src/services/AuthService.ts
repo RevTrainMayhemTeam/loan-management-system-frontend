@@ -16,3 +16,17 @@ export const registerUser = async (user: any) =>
     body: JSON.stringify(user),
     credentials: "include",
   });
+
+export const logoutUser = async () =>
+  fetch(`${API_BASE_URL}/api/auth/logout`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
+
+export const checkUserSession = async () =>
+  fetch(`${API_BASE_URL}/api/auth/session-check`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+  });
