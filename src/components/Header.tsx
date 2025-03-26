@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import { teal } from "@mui/material/colors";
 
 export const Header = () => {
   const { user, logout } = useContext(AuthContext)!;
@@ -24,7 +25,8 @@ export const Header = () => {
         background: "grey",
         display: "flex",
         justifyContent: "space-around",
-        height: 70,
+        alignItems:"center",
+        height: 50,
       }}
     >
       <Box sx={{ mx: 1, display: "flex", alignItems: "center" }}>
@@ -40,8 +42,7 @@ export const Header = () => {
       {user ? (
         <Button
           variant="contained"
-          color="error"
-          sx={{ mx: 1 }}
+          sx={{ mx: 1, width:"15vh", height:"6vh", background:"teal"}}
           onClick={logoutHandler}
         >
           Logout

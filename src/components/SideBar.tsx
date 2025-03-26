@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 
-//type Props = {}    {}: Props
-
 export default function SideBar() {
   const [content, setContent] = useState<string | null>(null); //The "(null)" is to set the default state
 
@@ -28,10 +26,11 @@ export default function SideBar() {
             e.stopPropagation();
             setContent("Option #1");
           }}
-          sx={{ mb: 4, bgcolor: "white", color: "black" }}
+          sx={{ mb: 4, bgcolor: "white", color: "black", minWidth: "30vh" }}
         >
-          Option #1
+          Loans
         </Button>
+
         <Button
           variant="contained"
           color="primary"
@@ -39,9 +38,9 @@ export default function SideBar() {
             e.stopPropagation();
             setContent("Option #2");
           }}
-          sx={{ bgcolor: "white", color: "black" }}
+          sx={{ mb: 4, bgcolor: "white", color: "black", minWidth: "30vh" }}
         >
-          Option #2
+          User Profile
         </Button>
       </Box>
 
