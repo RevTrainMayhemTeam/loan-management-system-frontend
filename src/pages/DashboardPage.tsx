@@ -1,7 +1,8 @@
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
+import SideBar from "../components/SideBar";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export const Dashboard = () => {
   return (
     <>
       <Header />
-      <p>dashboard</p>
+      <SideBar />
     </>
   );
 };

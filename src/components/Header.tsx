@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
@@ -24,19 +24,26 @@ export const Header = () => {
         background: "grey",
         display: "flex",
         justifyContent: "space-around",
-        height: 50,
+        height: 70,
       }}
     >
       <Box sx={{ mx: 1, display: "flex", alignItems: "center" }}>
-        Loan Management System
+        <Typography variant="subtitle1">Loan Management System</Typography>
       </Box>
       {user ? (
         <Box sx={{ mx: 1, display: "flex", alignItems: "center" }}>
-          Welcome {user?.firstName + " " + user?.lastName}
+          <Typography variant="subtitle1">
+            Welcome {user?.firstName + " " + user?.lastName}
+          </Typography>
         </Box>
       ) : null}
       {user ? (
-        <Button variant="text" sx={{ mx: 1 }} onClick={logoutHandler}>
+        <Button
+          variant="contained"
+          color="error"
+          sx={{ mx: 1 }}
+          onClick={logoutHandler}
+        >
           Logout
         </Button>
       ) : null}

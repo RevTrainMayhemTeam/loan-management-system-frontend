@@ -3,7 +3,7 @@ import Box from "@mui/system/Box";
 import { Button, TextField } from "@mui/material";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ export const LoginPage = () => {
           display: "flex",
           flexDirection: "column",
           mx: 5,
-          my: 2
+          my: 2,
         }}
       >
         <TextField
@@ -59,11 +59,13 @@ export const LoginPage = () => {
           Login
         </Button>
       </Box>
-      <Box sx={{
-        display:"flex",
-        justifyContent:"right",
-        mx: 5
-      }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "right",
+          mx: 5,
+        }}
+      >
         <Button variant="contained" onClick={registerHandler}>
           Register
         </Button>
