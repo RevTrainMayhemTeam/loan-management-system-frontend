@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { teal } from "@mui/material/colors";
 
 export const Header = () => {
   const { user, logout } = useContext(AuthContext)!;
