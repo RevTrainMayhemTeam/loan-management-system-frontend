@@ -4,6 +4,7 @@ import LoansCustomer from "./LoansCustomer";
 
 export default function SideBar() {
   const [content, setContent] = useState<React.ReactNode | null>(null); //The "(null)" is to set the default state
+  
 
   return (
     <Box display="flex" height="100vh" onClick={() => setContent(null)}>
@@ -47,19 +48,7 @@ export default function SideBar() {
 
       {/* Floating paper */}
       <Box flex={1} display="flex" alignItems="center" justifyContent="center">
-        {content && (
-          <Paper
-            elevation={5}
-            sx={{ padding: 4, minWidth: 300, textAlign: "center" }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Typography variant="h6">{content}</Typography>
-            <Typography variant="body1">
-              This is a placeholder for some content that el Jefazo is still
-              designing
-            </Typography>
-          </Paper>
-        )}
+        {content && <Box>{content}</Box>}
       </Box>
     </Box>
   );
