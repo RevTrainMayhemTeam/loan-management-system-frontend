@@ -3,7 +3,7 @@ import Box from "@mui/system/Box";
 import { Button, TextField } from "@mui/material";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ export const LoginPage = () => {
         component="section"
         sx={{
           p: 2,
-          border: "2px solid grey",
+          border: "2px solid #D0D0D5",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
@@ -55,7 +55,11 @@ export const LoginPage = () => {
             setPassword(e.target.value);
           }}
         />
-        <Button variant="contained" onClick={loginHandler}>
+        <Button
+          sx={{ backgroundColor: "#D0D0D5", color: "black" }}
+          variant="contained"
+          onClick={loginHandler}
+        >
           Login
         </Button>
       </Box>
@@ -66,7 +70,11 @@ export const LoginPage = () => {
           mx: 5,
         }}
       >
-        <Button variant="contained" onClick={registerHandler}>
+        <Button
+          sx={{ backgroundColor: "#D0D0D5", color: "black" }}
+          variant="contained"
+          onClick={registerHandler}
+        >
           Register
         </Button>
       </Box>

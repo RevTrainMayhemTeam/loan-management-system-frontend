@@ -1,8 +1,10 @@
 import { useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import SideBar from "../components/SideBar";
+import { LoansManager } from "../components/LoansManager";
+import { Box } from "@mui/material";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
@@ -22,9 +24,21 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <>
+    <Box sx={{
+      display: "flex",
+      flexDirection:"column",
+      height:"100vh"
+    }}>
       <Header />
-      <SideBar />
-    </>
+      <Box
+        sx={{
+          display: "flex",
+          flex:1,
+        }}
+      >
+        <SideBar />
+        <LoansManager />
+      </Box>
+    </Box>
   );
 };
