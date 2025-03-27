@@ -41,8 +41,7 @@ export const Header = () => {
           variant="contained"
           sx={{
             mx: 1,
-            width: "12vh",
-            height: "3.5vh",
+            width: "12vw",
             background: "#D0D0D5",
             color: "black",
           }}

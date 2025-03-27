@@ -13,34 +13,54 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getAllLoans } from "../services/LoanService";
+import { getAllLoans, getAllUserLoans } from "../services/LoanService";
+import { getAllUsers } from "../services/UserService";
 import { Loan } from "../models/Loan";
 import { User } from "../models/User";
-import { getAllUsers } from "../services/UserService";
 import { LoanDialog } from "./LoanDialog";
 
 export const LoansManager = () => {
-  const [selectedUserId, setSelectedUserId] = useState<number>(0);
   const [loans, setLoans] = useState<Loan[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<number>(0);
+  const [selectedLoan, setSelectedLoan] = useState<Loan | null>(null);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-  const handleRowClick = () => {
-    console.log("Row clicked");
+  const handleRowClick = (loan: Loan) => {
+    setSelectedLoan(loan);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedLoan(null);
+  }
+
+  const fetchAllLoans = async () => {
+    try {
+      const response = await getAllLoans();
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setLoans(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchAllUserLoans = async (userId: number) => {
+    try {
+      const response = await getAllUserLoans(userId);
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setLoans(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    const fetchAllLoans = async () => {
-      try {
-        const response = await getAllLoans();
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setLoans(data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     const fetchAllUsers = async () => {
       try {
         const response = await getAllUsers();
@@ -52,10 +72,16 @@ export const LoansManager = () => {
         console.error(error);
       }
     };
-
-    fetchAllLoans();
     fetchAllUsers();
   }, []);
+
+  useEffect(() => {
+    if (selectedUserId === 0) {
+      fetchAllLoans();
+    } else {
+      fetchAllUserLoans(selectedUserId);
+    }
+  }, [selectedUserId]);
 
   return (
     <>
@@ -65,6 +91,7 @@ export const LoansManager = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
+          height: "100%",
           width: "100%",
           padding: 2,
         }}
@@ -74,7 +101,7 @@ export const LoansManager = () => {
           sx={{
             width: "100%",
             mb: 2,
-            mr:"auto"
+            mr: "auto",
           }}
         >
           <InputLabel id="user-select-label">Loans: </InputLabel>
@@ -94,10 +121,10 @@ export const LoansManager = () => {
             ))}
           </Select>
         </FormControl>
-        <TableContainer component={Paper} >
-          <Table >
-            <TableHead sx={{ bgcolor: "#F0F0F1"}}>
-              <TableRow >
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead sx={{ bgcolor: "#F0F0F1" }}>
+              <TableRow>
                 <TableCell>Client</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Term</TableCell>
@@ -108,7 +135,7 @@ export const LoansManager = () => {
 
             <TableBody>
               {loans.map((loan, i) => (
-                <TableRow key={i} onClick={handleRowClick}>
+                <TableRow key={i} onClick={() => handleRowClick(loan)}>
                   <TableCell>{loan.clientName}</TableCell>
                   <TableCell>{loan.amount}</TableCell>
                   <TableCell>{loan.term}</TableCell>
@@ -120,6 +147,7 @@ export const LoansManager = () => {
           </Table>
         </TableContainer>
       </Box>
+      <LoanDialog open={openDialog} handleClose={handleCloseDialog} loan={selectedLoan}/>
     </>
   );
 };

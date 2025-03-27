@@ -28,55 +28,61 @@ export const LoginPage = () => {
     <>
       <Header />
       <Box
-        component="section"
-        sx={{
-          p: 2,
-          border: "2px solid #D0D0D5",
-          borderRadius: 5,
-          display: "flex",
-          flexDirection: "column",
-          mx: 5,
-          my: 2,
-        }}
+      component="section"
+      sx={{
+        border: "2px solid #D0D0D5",
+        borderRadius: 5,
+        display: "flex",
+        flexDirection: "column",
+        mx: "auto",
+        my: 2,
+        p: 2,
+        maxWidth: 500,
+      }}
       >
-        <TextField
-          variant="standard"
-          label="E-mail"
-          sx={{ mb: 4 }}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <TextField
-          variant="standard"
-          label="Password"
-          sx={{ mb: 4 }}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <Button
-          sx={{ backgroundColor: "#D0D0D5", color: "black" }}
-          variant="contained"
-          onClick={loginHandler}
-        >
-          Login
-        </Button>
+      <TextField
+        variant="standard"
+        label="E-mail"
+        sx={{ mb: 4 }}
+        onChange={(e) => {
+        setEmail(e.target.value);
+        }}
+      />
+      <TextField
+        variant="standard"
+        label="Password"
+        sx={{ mb: 4 }}
+        onChange={(e) => {
+        setPassword(e.target.value);
+        }}
+      />
+      <Button
+        sx={{ backgroundColor: "#D0D0D5", color: "black" }}
+        variant="contained"
+        onClick={loginHandler}
+      >
+        Login
+      </Button>
       </Box>
       <Box
-        sx={{
-          display: "flex",
-          justifyContent: "right",
-          mx: 5,
-        }}
+      sx={{
+        display: "flex",
+        justifyContent: "right",
+        mx: "auto",
+        my: 2,
+        maxWidth: 500,
+      }}
       >
-        <Button
-          sx={{ backgroundColor: "#D0D0D5", color: "black" }}
-          variant="contained"
-          onClick={registerHandler}
-        >
-          Register
-        </Button>
+      <Button
+        sx={{
+        backgroundColor: "#D0D0D5",
+        color: "black",
+        }}
+        variant="contained"
+        onClick={registerHandler}
+      >
+        Register
+      </Button>
       </Box>
     </>
   );
