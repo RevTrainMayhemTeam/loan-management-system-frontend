@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Loan } from "../models/Loan";
 import { getLoans } from "../services/LoanService";
 import {
   Box,
   Button,
   Paper,
+  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -12,95 +13,134 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import AuthContext from "../context/AuthContext";
+import CreateLoanDialog from "./CreateLoanDialog";
 
 type Props = {};
 
 function LoansCustomer({}: Props) {
   const [loans, setLoans] = useState<Loan[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext)!;
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    fetchLoans().finally(() => setLoading(false));
-  }, []);
-
-  const fetchLoans = async () => {
-    console.log("Ejecutando fetch loans");
-    try {
-      const res = await getLoans();
-      console.log("Respuesta en res: ", res);
-      const data = await res.json();
-      console.log("Respuesta de la API:", data);
-      if (!data || data.length === 0){
-        return (
-          <Box
-            flex={1}
-            display="flex"
-            height="100vh"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Paper
-              elevation={5}
-              sx={{ padding: 4, minWidth: 300, textAlign: "left" }}
-            >
-              <Typography variant="h4">My loans</Typography>
-              <Paper
-                elevation={3}
-                sx={{ padding: 4, minWidth: 300, alignContent: "center" }}
-              >
-                <Typography variant="h6">No Loans to show</Typography>
-              </Paper>
-            </Paper>
-          </Box>
-        );}
-
-      if (Array.isArray(data)) {
-        setLoans(data);
-      } else {
-        setLoans(data.loan);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const handleClose = () => {
+    setOpen(false);
   };
 
-  console.log("Content de loans: ", loans);
-  const headers = loans.length > 0 ? Object.keys(loans[0]).slice(0, -1): [];
+  const handleSubmit = () => {
+    //code to submit the form
+    setOpen(false);
+  };
 
-  return (
-    <Box
-      flex={1}
-      display="flex"
-      height="100vh"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Paper
-        elevation={5}
-        sx={{ padding: 4, minWidth: 300, textAlign: "left" }}
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    const fetchLoans = async () => {
+      try {
+        if (user) {
+          const res = await getLoans(user.id);
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            setLoans(data);
+          }
+        } else {
+          console.error("User is null");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchLoans();
+  }, []);
+
+  if (!loans || loans.length === 0) {
+    return (
+      <Box
+        flex={1}
+        display="flex"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
       >
-        <Typography variant="h4">My loans</Typography>
-        <TableContainer component={Paper}>
-          <TableHead>
-            <TableRow>
-            {headers.map((header) => (
-                <TableCell key={header}>{header}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {loans.map((row, index) => (
-              <TableRow key={index}>
-                {headers.map((header) => (
-                  <TableCell key={header}>{row[header]}</TableCell>
+        <Paper
+          elevation={5}
+          sx={{ padding: 1, minWidth: 600, textAlign: "left" }}
+        >
+          <Typography variant="h4">My loans</Typography>
+          <Paper
+            elevation={3}
+            sx={{ padding: 4, minWidth: 300, alignContent: "center" }}
+          >
+            <Typography variant="h6">No Loans to show</Typography>
+          </Paper>
+        </Paper>
+      </Box>
+    );
+  } else {
+    console.log(loans);
+    return (
+      <Box
+        flex={1}
+        display="flex"
+        height="100vh"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Paper
+          elevation={5}
+          sx={{ padding: 4, minWidth: 600, textAlign: "left" }}
+        >
+          <Typography variant="h4">My loans</Typography>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Loan id</TableCell>
+                  <TableCell>Amount</TableCell>
+                  <TableCell>Term</TableCell>
+                  <TableCell>Type</TableCell>
+                  <TableCell>Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loans.map((loan, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{loan.id}</TableCell>
+                    <TableCell>{loan.amount}</TableCell>
+                    <TableCell>{loan.term}</TableCell>
+                    <TableCell size="medium">{loan.type}</TableCell>
+                    <TableCell>{loan.status}</TableCell>
+                  </TableRow>
                 ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </TableContainer>
-      </Paper>
-    </Box>
-  );
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Button
+            variant="contained"
+            sx={{
+              mt: 3,
+              bgcolor: "white",
+              color: "black",
+              width: "300",
+              alignSelf: "baseline",
+            }}
+            color="primary"
+            onClick={handleClickOpen}
+          >
+            New Loan
+          </Button>
+          <CreateLoanDialog
+            open={open}
+            onClose={handleClose}
+            onSubmit={handleSubmit}
+          />
+        </Paper>
+      </Box>
+    );
+  }
 }
 
 export default LoansCustomer;

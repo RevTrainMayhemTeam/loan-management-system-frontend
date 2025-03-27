@@ -2,7 +2,7 @@ export interface Loan {
   loanId: number;
   amount: number;
   term: number;
-  loanType: string;
+  type: string;
   status: string;
   customerName: string;
 

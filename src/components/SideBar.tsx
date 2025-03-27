@@ -4,10 +4,9 @@ import LoansCustomer from "./LoansCustomer";
 
 export default function SideBar() {
   const [content, setContent] = useState<React.ReactNode | null>(null); //The "(null)" is to set the default state
-  
 
   return (
-    <Box display="flex" height="100vh" onClick={() => setContent(null)}>
+    <Box display="flex" height="100vh">
       {/* Here we use the onClick event to close the paper when the user clicks anywhere besides from the paper, the side bar or the buttons */}
 
       {/* Blue side bar */}
@@ -45,8 +44,6 @@ export default function SideBar() {
           User Profile
         </Button>
       </Box>
-
-      {/* Floating paper */}
       <Box flex={1} display="flex" alignItems="center" justifyContent="center">
         {content && <Box>{content}</Box>}
       </Box>
