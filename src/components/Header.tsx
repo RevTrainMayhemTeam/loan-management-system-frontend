@@ -23,12 +23,10 @@ export const Header = () => {
       sx={{
         background: "#F0F0F1",
         display: "flex",
-        justifyContent: "space-around",
-        alignItems:"center",
         py: 1,
       }}
     >
-      <Box sx={{ mx: 1, display: "flex", alignItems: "center", mr:"auto" }}>
+      <Box sx={{ mx: 1, display: "flex", alignItems: "center", mr: "auto" }}>
         <Typography variant="subtitle1">Loan Management System</Typography>
       </Box>
       {user ? (
@@ -41,7 +39,13 @@ export const Header = () => {
       {user ? (
         <Button
           variant="contained"
-          sx={{ mx: 1, width:"12vh", height:"3.5vh", background:"#D0D0D5", color:"black" }}
+          sx={{
+            mx: 1,
+            width: "12vh",
+            height: "3.5vh",
+            background: "#D0D0D5",
+            color: "black",
+          }}
           onClick={logoutHandler}
         >
           Logout
