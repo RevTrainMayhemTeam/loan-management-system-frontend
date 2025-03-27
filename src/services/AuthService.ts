@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "http://localhost:9898";
 
 export const loginUser = async (user: any) =>
   fetch(`${API_BASE_URL}/api/auth/login`, {

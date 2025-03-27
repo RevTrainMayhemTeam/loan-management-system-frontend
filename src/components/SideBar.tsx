@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
+import LoansCustomer from "./LoansCustomer";
 
 export default function SideBar() {
-  const [content, setContent] = useState<string | null>(null); //The "(null)" is to set the default state
+  const [content, setContent] = useState<React.ReactNode | null>(null); //The "(null)" is to set the default state
 
   return (
     <Box display="flex" height="100vh" onClick={() => setContent(null)}>
@@ -24,7 +25,7 @@ export default function SideBar() {
           color="primary"
           onClick={(e) => {
             e.stopPropagation();
-            setContent("Option #1");
+            setContent(<LoansCustomer />);
           }}
           sx={{ mb: 4, bgcolor: "white", color: "black", minWidth: "30vh" }}
         >

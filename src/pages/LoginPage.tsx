@@ -3,7 +3,7 @@ import Box from "@mui/system/Box";
 import { Button, TextField } from "@mui/material";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
