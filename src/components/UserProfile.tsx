@@ -71,9 +71,7 @@ export const UserProfile = () => {
             p: 2,
             borderRadius: 5,
             mx: "auto",
-            my: 2,
             background: "#F0F0F1",
-            border: "2px solid grey",
           }}
         >
           <Box display="flex" justifyContent="center" marginTop={2}>

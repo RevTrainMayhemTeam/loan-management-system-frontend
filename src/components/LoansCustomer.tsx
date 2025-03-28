@@ -13,24 +13,34 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { getAllUserLoans } from "../services/LoanService";
 import { Loan } from "../models/Loan";
-import { UserLoanDialog } from "./UserLoanDialog";
+import { UpdateLoanDialog } from "./UpdateLoanDialog";
 import AuthContext from "../context/AuthContext";
+import CreateLoanDialog from "./CreateLoanDialog";
 
 export const LoansCustomer = () => {
   const [loans, setLoans] = useState<Loan[]>([]);
   const [selectedLoan, setSelectedLoan] = useState<Loan | null>(null);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [openUpdateDialog, setOpenUpdateDialog] = useState<boolean>(false);
+  const [openCreateDialog, setOpenCreateDialog] = useState(false);
   const { user } = useContext(AuthContext)!;
 
   const handleRowClick = (loan: Loan) => {
     setSelectedLoan(loan);
-    setOpenDialog(true);
+    setOpenUpdateDialog(true);
   };
 
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleCloseCreateDialog = () => {
+    setOpenCreateDialog(false);
+    if (user) {
+      fetchAllUserLoans(user.id);
+    }
+  };
+
+
+  const handleCloseUpdateDialog = () => {
+    setOpenUpdateDialog(false);
     setSelectedLoan(null);
-    if(user){
+    if (user) {
       fetchAllUserLoans(user.id);
     }
   };
@@ -81,7 +91,7 @@ export const LoansCustomer = () => {
         <TableContainer
           component={Paper}
           sx={{
-            maxHeight: "80%"
+            maxHeight: "80%",
           }}
         >
           <Table stickyHeader>
@@ -117,16 +127,18 @@ export const LoansCustomer = () => {
               background: "#D0D0D5",
               color: "black",
             }}
+            onClick={() => setOpenCreateDialog(true)}
           >
             Apply for a Loan
           </Button>
         </Box>
       </Box>
-      <UserLoanDialog
-        open={openDialog}
-        handleClose={handleCloseDialog}
+      <UpdateLoanDialog
+        open={openUpdateDialog}
+        handleClose={handleCloseUpdateDialog}
         loan={selectedLoan}
       />
+      <CreateLoanDialog open={openCreateDialog} onClose={handleCloseCreateDialog} />
     </>
   );
 };

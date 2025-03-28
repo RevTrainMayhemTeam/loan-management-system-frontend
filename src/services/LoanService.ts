@@ -17,6 +17,14 @@ export const getAllUserLoans = async (userId: number) =>
     credentials: "include",
   });
 
+export const createLoan = async (loan: any) =>
+  fetch(`${API_BASE_URL}/api/loans`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(loan),
+    credentials: "include",
+  });
+
 export const updateLoan = async (loanId: number, updatedLoan: any) =>
   fetch(`${API_BASE_URL}/api/loans/${loanId}`, {
     method: "PUT",

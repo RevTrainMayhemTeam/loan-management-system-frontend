@@ -13,17 +13,17 @@ import { useEffect, useState } from "react";
 import { Type } from "../models/Type";
 import { getTypes, updateLoan } from "../services/LoanService";
 
-interface UserLoanDialogProps {
+interface UpdateLoanDialogProps {
   open: boolean;
   handleClose: () => void;
   loan: Loan | null;
 }
 
-export const UserLoanDialog = ({
+export const UpdateLoanDialog = ({
   open,
   handleClose,
   loan,
-}: UserLoanDialogProps) => {
+}: UpdateLoanDialogProps) => {
   // State variables to manage loan data and types
   const [types, setTypes] = useState<Type[]>([]);
   const [amount, setAmount] = useState<number>(0);
