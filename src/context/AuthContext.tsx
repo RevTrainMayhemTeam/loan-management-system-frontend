@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * useContext is a React hook that allows us to share data (like user info)
  * across the entire component tree, without manually passing props at every level.
@@ -5,16 +6,27 @@
  */
 
 import { createContext, useState } from "react";
-import { loginUser, registerUser, logoutUser, checkUserSession } from "../services/AuthService";
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+  checkUserSession,
+} from "../services/AuthService";
+import { updateUserInfo } from "../services/UserService";
 import { User } from "../models/User";
 
 // A type to to represent our context
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (email:string, password:string,firstName: string,
+  register: (
+    email: string,
+    password: string,
+    firstName: string,
     lastName: string,
-    phoneNumber: string ) => Promise<void>;
+    phoneNumber: string
+  ) => Promise<void>;
+  updateUser: (userId: number, user: any) => Promise<void>;
   logout: () => Promise<void>;
   checkSession: () => Promise<boolean>;
 }
@@ -57,23 +69,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       firstName,
       lastName,
       phoneNumber,
-    })
-    if(response.ok){
+    });
+    if (response.ok) {
       const userData = await response.json();
       setUser(userData);
     }
   };
 
-  const logout = async () => {
-    const response = await logoutUser();
-    if(response.ok){
-      setUser(null);
+  const updateUser = async (userId: number, user:any) => {
+    const response = await updateUserInfo(userId, user);
+    if (response.ok) {
+      const userData = await response.json();
+      setUser(userData);
     }
   }
 
+  const logout = async () => {
+    const response = await logoutUser();
+    if (response.ok) {
+      setUser(null);
+    }
+  };
+
   const checkSession = async () => {
     const response = await checkUserSession();
-    if(response.ok){
+    if (response.ok) {
       const userData = await response.json();
       setUser(userData);
       return true;
@@ -81,7 +101,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(null);
       return false;
     }
-  }
+  };
 
   /**
    * We wrap our app (children) in AuthContext.Provider,
@@ -90,7 +110,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * to access or update user data (through login).
    */
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, checkSession }}>
+    <AuthContext.Provider
+      value={{ user, login, register, updateUser, logout, checkSession }}
+    >
       {children}
     </AuthContext.Provider>
   );

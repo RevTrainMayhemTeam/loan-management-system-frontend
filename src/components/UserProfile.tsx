@@ -1,25 +1,23 @@
-import { useContext, useState, useEffect} from "react";
+import { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
-import { TextField, Avatar, Button, Typography, Box} from "@mui/material";
-import { updateUserInfo } from "../services/UserService";
+import { TextField, Avatar, Button, Typography, Box } from "@mui/material";
 
+export const UserProfile = () => {
 
-function UserProfile() {
-  const {user} = useContext(AuthContext)!;
-
+  const { user, updateUser } = useContext(AuthContext)!;
   const [updateData, setUpdateData] = useState({
     firstName: "",
     lastName: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
 
   //Hook useEffect for setting the original information of the user
   useEffect(() => {
-    if(user) {
+    if (user) {
       setUpdateData({
         firstName: user.firstName,
         lastName: user.lastName,
-        phoneNumber: user.phoneNumber
+        phoneNumber: user.phoneNumber,
       });
     }
   }, [user]);
@@ -27,49 +25,55 @@ function UserProfile() {
   //Changes the information in the field
   const changeInfoField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUpdateData(prev => ({
+    setUpdateData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   //Updates the user info
-  const updateUserHandler = async () =>{
-    if(user){
+  const updateUserHandler = async () => {
+    if (user) {
       try {
         const updatedData = {
-          id: user.id,
           firstName: updateData.firstName,
           lastName: updateData.lastName,
-          phoneNumber: updateData.phoneNumber,
-          email: user.email,
-          role: user.role
+          phoneNumber: updateData.phoneNumber
         };
-          await updateUserInfo(updatedData);  
+        await updateUser(user.id, updatedData);
       } catch (error) {
         console.log(error);
       }
     }
-
   };
 
-    if(user){
-      return (
+  if (user) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch", // Ensures children take full width
+          justifyContent: "flex-start",
+          height: "calc(100vh - 53px)", // Adjust to available height (subtract for header if needed)
+          width: "100%",
+          padding: 2,
+          overflow: "hidden",
+        }}
+      >
         <Box
           component="section"
           sx={{
-            background: "#F0F0F1",
-            display: "flex",
-            maxWidth: 800,
-            minHeight: 600,
+            display: "flex",            
+            flexDirection: "column",
             alignItems: "center",
             py: 10,
             p: 2,
-            border: "2px solid grey",
             borderRadius: 5,
-            flexDirection: "column",
             mx: "auto",
             my: 2,
+            background: "#F0F0F1",
+            border: "2px solid grey",
           }}
         >
           <Box display="flex" justifyContent="center" marginTop={2}>
@@ -79,8 +83,8 @@ function UserProfile() {
                 height: 90,
                 my: 2,
                 marginRight: 2,
-                bgcolor: "primary.main",
-                fontSize: 36
+                bgcolor: "#D0D0D5",
+                fontSize: 36,
               }}
             >
               {user.firstName?.charAt(0)}
@@ -88,10 +92,15 @@ function UserProfile() {
             </Avatar>
           </Box>
 
-          <Typography variant="h4" align="center">{`${user.firstName} ${user.lastName}`}</Typography>
-          <Typography variant="h6" color="gray" align="center" marginBottom={3}>{user.email}</Typography>
+          <Typography
+            variant="h4"
+            align="center"
+          >{`${user.firstName} ${user.lastName}`}</Typography>
+          <Typography variant="h6" color="gray" align="center" marginBottom={3}>
+            {user.email}
+          </Typography>
 
-          <Box component="form" sx={{ width: '100%', maxWidth: 500 }}>
+          <Box component="form" sx={{ width: "100%", maxWidth: 500 }}>
             <TextField
               fullWidth
               variant="standard"
@@ -124,8 +133,8 @@ function UserProfile() {
 
             <Box display="flex" justifyContent="center" marginTop={2}>
               <Button
+                sx={{ bgcolor: "#D0D0D5", color: "black" }}
                 variant="contained"
-                type="submit"
                 onClick={updateUserHandler}
               >
                 Save changes
@@ -133,8 +142,7 @@ function UserProfile() {
             </Box>
           </Box>
         </Box>
-      );
-    }
-}
-export default UserProfile;
-
+      </Box>
+    );
+  }
+};
