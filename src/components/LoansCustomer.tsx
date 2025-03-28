@@ -1,7 +1,6 @@
 import { Box } from '@mui/material'
-import React from 'react'
 
-export const UserProfile = () => {
+export const LoansCustomer = () => {
   return (
     <Box sx={{
       display: "flex",
@@ -12,7 +11,7 @@ export const UserProfile = () => {
       width: "100%",
       border: "1px solid red",
     }}>
-      userProfile
+      Loans-Customer
     </Box>
   )
 }

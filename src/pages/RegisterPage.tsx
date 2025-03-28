@@ -1,6 +1,6 @@
 import Box from "@mui/system/Box";
 import { Button, TextField } from "@mui/material";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
@@ -11,6 +11,7 @@ export const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [error, setError] = useState(false);
   const { register } = useContext(AuthContext)!;
 
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export const RegisterPage = () => {
       await register(email, password, firstName, lastName, phoneNumber);
       navigate("/");
     } catch (error) {
+      setError(true);
       console.log(error);
     }
   };
@@ -27,6 +29,7 @@ export const RegisterPage = () => {
   const loginHandler = () => {
     navigate("/login");
   };
+
   return (
     <>
       <Header />
@@ -43,6 +46,7 @@ export const RegisterPage = () => {
         }}
       >
         <TextField
+          error={error}
           variant="standard"
           label="Email"
           sx={{ mb: 4 }}
@@ -51,6 +55,7 @@ export const RegisterPage = () => {
           }}
         />
         <TextField
+          error={error}
           variant="standard"
           label="First name"
           sx={{ mb: 4 }}
@@ -59,6 +64,7 @@ export const RegisterPage = () => {
           }}
         />
         <TextField
+          error={error}
           variant="standard"
           label="Last name"
           sx={{ mb: 4 }}
@@ -67,6 +73,7 @@ export const RegisterPage = () => {
           }}
         />
         <TextField
+          error={error}
           variant="standard"
           label="Phone number"
           sx={{ mb: 4 }}
@@ -75,6 +82,7 @@ export const RegisterPage = () => {
           }}
         />
         <TextField
+          error={error}
           variant="standard"
           label="Password"
           sx={{ mb: 4 }}
@@ -82,7 +90,11 @@ export const RegisterPage = () => {
             setPassword(e.target.value);
           }}
         />
-        <Button variant="contained" onClick={registerHandler}>
+        <Button
+          sx={{ background: "#D0D0D5", color: "black" }}
+          variant="contained"
+          onClick={registerHandler}
+        >
           Register
         </Button>
       </Box>
@@ -93,7 +105,11 @@ export const RegisterPage = () => {
           mx: 5,
         }}
       >
-        <Button variant="contained" onClick={loginHandler}>
+        <Button
+          sx={{ background: "#D0D0D5", color: "black" }}
+          variant="contained"
+          onClick={loginHandler}
+        >
           Login
         </Button>
       </Box>
