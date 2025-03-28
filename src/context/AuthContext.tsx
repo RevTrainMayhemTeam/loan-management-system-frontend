@@ -4,7 +4,7 @@
  * We create a context (AuthContext) and a provider (AuthProvider).
  */
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { loginUser, registerUser, logoutUser, checkUserSession } from "../services/AuthService";
 import { updateUserInfo } from "../services/UserService";
 import { User } from "../models/User";
@@ -85,13 +85,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  const updateUser = async(updatedUser: User) => {
+  const updateUser = async (updatedUser: User) =>{
     const response = await updateUserInfo(updatedUser);
     if(response.ok){
       const userData = await response.json();
       setUser(userData);
     }
+    else{
+      setUser(null);
+    }
   }
+
+
 
   /**
    * We wrap our app (children) in AuthContext.Provider,

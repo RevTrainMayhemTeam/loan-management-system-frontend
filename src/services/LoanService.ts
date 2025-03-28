@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
-const API_BASE_URL = "http://localhost:9898/api";
+const API_BASE_URL = "http://localhost:8080/api";
 
 export const getLoans = async (userId:number) => {
   

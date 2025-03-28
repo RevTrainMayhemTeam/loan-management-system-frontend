@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import LoansCustomer from "./LoansCustomer";
+import UserProfile from "./UserProfile";
 
 export default function SideBar() {
   const [content, setContent] = useState<React.ReactNode | null>(null); //The "(null)" is to set the default state
@@ -37,7 +38,7 @@ export default function SideBar() {
           color="primary"
           onClick={(e) => {
             e.stopPropagation();
-            setContent("Option #2");
+            setContent(<UserProfile/>);
           }}
           sx={{ mb: 4, bgcolor: "white", color: "black", minWidth: "30vh" }}
         >
