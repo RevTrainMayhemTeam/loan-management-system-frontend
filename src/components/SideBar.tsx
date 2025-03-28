@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button} from "@mui/material";
 import LoansCustomer from "./LoansCustomer";
 
 export default function SideBar() {

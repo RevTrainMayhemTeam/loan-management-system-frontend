@@ -25,34 +25,30 @@ function LoansCustomer({}: Props) {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleSubmit = () => {
-    //code to submit the form
-    setOpen(false);
+    fetchLoans();
   };
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  useEffect(() => {
-    const fetchLoans = async () => {
-      try {
-        if (user) {
-          const res = await getLoans(user.id);
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            setLoans(data);
-          }
-        } else {
-          console.error("User is null");
+  const fetchLoans = async () => {
+    try {
+      if (user) {
+        const res = await getLoans(user.id);
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          setLoans(data);
         }
-      } catch (err) {
-        console.error(err);
+      } else {
+        console.error("User is null");
       }
-    };
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
+  useEffect(() => {
     fetchLoans();
   }, []);
 
@@ -80,7 +76,6 @@ function LoansCustomer({}: Props) {
       </Box>
     );
   } else {
-    console.log(loans);
     return (
       <Box
         flex={1}
@@ -132,11 +127,7 @@ function LoansCustomer({}: Props) {
           >
             New Loan
           </Button>
-          <CreateLoanDialog
-            open={open}
-            onClose={handleClose}
-            onSubmit={handleSubmit}
-          />
+          <CreateLoanDialog open={open} onClose={handleClose} />
         </Paper>
       </Box>
     );
