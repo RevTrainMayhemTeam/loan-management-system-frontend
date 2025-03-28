@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { Loan } from "../models/Loan";
+import { approveLoan, rejectLoan } from "../services/LoanService";
 
 interface LoanDialogProps {
   open: boolean;
@@ -18,6 +19,31 @@ interface LoanDialogProps {
 }
 
 export const LoanDialog = ({ open, handleClose, loan }: LoanDialogProps) => {
+
+  const handleApprove = async () => {
+    if(loan){
+      const response = await approveLoan(loan.id);
+      if (response.ok) {
+        console.log("Loan approved successfully!");
+      } else {
+        console.error("Failed to approve loan.");
+      }
+    }
+    handleClose();
+  };
+   
+  const handleReject = async () => {
+    if(loan){
+      const response = await rejectLoan(loan.id);
+      if (response.ok) {
+        console.log("Loan approved successfully!");
+      } else {
+        console.error("Failed to approve loan.");
+      }
+    }
+    handleClose();
+  }; 
+
   return (
     <Dialog
       open={open}
@@ -66,11 +92,15 @@ export const LoanDialog = ({ open, handleClose, loan }: LoanDialogProps) => {
       <Box sx={{ display: "flex", mt: 2 }}>
         <Button
           sx={{ background: "#D0D0D5", color: "black", mr: 2, width: "50%" }}
+          onClick={handleApprove}
+          {...loan?.status !== "Pending" ? { disabled: true } : {}}
         >
           Approve
         </Button>
         <Button
           sx={{ background: "#D0D0D5", color: "black", ml: 2, width: "50%" }}
+          onClick={handleReject}
+          {...loan?.status !== "Pending" ? { disabled: true } : {}}
         >
           Reject
         </Button>

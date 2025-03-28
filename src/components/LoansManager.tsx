@@ -34,7 +34,12 @@ export const LoansManager = () => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
     setSelectedLoan(null);
-  }
+    if (selectedUserId !== 0) {
+      fetchAllUserLoans(selectedUserId);
+    } else {
+      fetchAllLoans();
+    }
+  };
 
   const fetchAllLoans = async () => {
     try {
@@ -89,11 +94,12 @@ export const LoansManager = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "stretch", // Ensures children take full width
           justifyContent: "flex-start",
-          height: "100%",
+          height: "calc(100vh - 53px)", // Adjust to available height (subtract for header if needed)
           width: "100%",
           padding: 2,
+          overflow: "hidden",
         }}
       >
         <FormControl
@@ -121,15 +127,21 @@ export const LoansManager = () => {
             ))}
           </Select>
         </FormControl>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead sx={{ bgcolor: "#F0F0F1" }}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            flexGrow: 1, // Fills remaining space in the Box
+            overflowY: "auto", // Enables vertical scrolling inside the table
+          }}
+        >
+          <Table stickyHeader>
+            <TableHead>
               <TableRow>
-                <TableCell>Client</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Term</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Status</TableCell>
+                <TableCell sx={{ bgcolor: "#F0F0F1" }}>Client</TableCell>
+                <TableCell sx={{ bgcolor: "#F0F0F1" }}>Amount</TableCell>
+                <TableCell sx={{ bgcolor: "#F0F0F1" }}>Term</TableCell>
+                <TableCell sx={{ bgcolor: "#F0F0F1" }}>Type</TableCell>
+                <TableCell sx={{ bgcolor: "#F0F0F1" }}>Status</TableCell>
               </TableRow>
             </TableHead>
 
@@ -147,7 +159,11 @@ export const LoansManager = () => {
           </Table>
         </TableContainer>
       </Box>
-      <LoanDialog open={openDialog} handleClose={handleCloseDialog} loan={selectedLoan}/>
+      <LoanDialog
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        loan={selectedLoan}
+      />
     </>
   );
 };
