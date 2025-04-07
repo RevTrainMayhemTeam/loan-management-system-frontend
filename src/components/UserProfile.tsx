@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useContext, useState, useEffect} from "react";
 import AuthContext from "../context/AuthContext";
 import { TextField, Avatar, Button, Typography, Box} from "@mui/material";
@@ -13,29 +14,60 @@ function UserProfile() {
     firstName: "",
     lastName: "",
     phoneNumber: ""
+=======
+import { useContext, useState, useEffect } from "react";
+import AuthContext from "../context/AuthContext";
+import { TextField, Avatar, Button, Typography, Box } from "@mui/material";
+
+export const UserProfile = () => {
+
+  const { user, updateUser } = useContext(AuthContext)!;
+  const [updateData, setUpdateData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+>>>>>>> origin/main
   });
 
   //Hook useEffect for setting the original information of the user
   useEffect(() => {
+<<<<<<< HEAD
     if(user) {
       setUpdateData({
         firstName: user.firstName,
         lastName: user.lastName,
         phoneNumber: user.phoneNumber
+=======
+    if (user) {
+      setUpdateData({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phoneNumber: user.phoneNumber,
+>>>>>>> origin/main
       });
     }
   }, [user]);
 
+<<<<<<< HEAD
   //Changes the information in the field / stores the new information
   const changeInfoField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUpdateData(prev => ({
       ...prev,
       [name]: value
+=======
+  //Changes the information in the field
+  const changeInfoField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUpdateData((prev) => ({
+      ...prev,
+      [name]: value,
+>>>>>>> origin/main
     }));
   };
 
   //Updates the user info
+<<<<<<< HEAD
   const updateUserHandler = async () =>{
     if(user){
       try {
@@ -48,10 +80,22 @@ function UserProfile() {
           role: user.role
         };
           await updateUserInfo(updatedData);  
+=======
+  const updateUserHandler = async () => {
+    if (user) {
+      try {
+        const updatedData = {
+          firstName: updateData.firstName,
+          lastName: updateData.lastName,
+          phoneNumber: updateData.phoneNumber
+        };
+        await updateUser(user.id, updatedData);
+>>>>>>> origin/main
       } catch (error) {
         console.log(error);
       }
     }
+<<<<<<< HEAD
 
   };
 
@@ -72,6 +116,35 @@ function UserProfile() {
             flexDirection: "column",
             mx: "auto",
             my: 2,
+=======
+  };
+
+  if (user) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "stretch", // Ensures children take full width
+          justifyContent: "flex-start",
+          height: "calc(100vh - 53px)", // Adjust to available height (subtract for header if needed)
+          width: "100%",
+          padding: 2,
+          overflow: "hidden",
+        }}
+      >
+        <Box
+          component="section"
+          sx={{
+            display: "flex",            
+            flexDirection: "column",
+            alignItems: "center",
+            py: 10,
+            p: 2,
+            borderRadius: 5,
+            mx: "auto",
+            background: "#F0F0F1",
+>>>>>>> origin/main
           }}
         >
           <Box display="flex" justifyContent="center" marginTop={2}>
@@ -81,8 +154,13 @@ function UserProfile() {
                 height: 90,
                 my: 2,
                 marginRight: 2,
+<<<<<<< HEAD
                 bgcolor: "primary.main",
                 fontSize: 36
+=======
+                bgcolor: "#D0D0D5",
+                fontSize: 36,
+>>>>>>> origin/main
               }}
             >
               {user.firstName?.charAt(0)}
@@ -90,10 +168,22 @@ function UserProfile() {
             </Avatar>
           </Box>
 
+<<<<<<< HEAD
           <Typography variant="h4" align="center">{`${user.firstName} ${user.lastName}`}</Typography>
           <Typography variant="h6" color="gray" align="center" marginBottom={3}>{user.email}</Typography>
 
           <Box component="form" sx={{ width: '100%', maxWidth: 500 }}>
+=======
+          <Typography
+            variant="h4"
+            align="center"
+          >{`${user.firstName} ${user.lastName}`}</Typography>
+          <Typography variant="h6" color="gray" align="center" marginBottom={3}>
+            {user.email}
+          </Typography>
+
+          <Box component="form" sx={{ width: "100%", maxWidth: 500 }}>
+>>>>>>> origin/main
             <TextField
               fullWidth
               variant="standard"
@@ -126,8 +216,13 @@ function UserProfile() {
 
             <Box display="flex" justifyContent="center" marginTop={2}>
               <Button
+<<<<<<< HEAD
                 variant="contained"
                 type="submit"
+=======
+                sx={{ bgcolor: "#D0D0D5", color: "black" }}
+                variant="contained"
+>>>>>>> origin/main
                 onClick={updateUserHandler}
               >
                 Save changes
@@ -135,8 +230,15 @@ function UserProfile() {
             </Box>
           </Box>
         </Box>
+<<<<<<< HEAD
       );
     }
 }
 export default UserProfile;
 
+=======
+      </Box>
+    );
+  }
+};
+>>>>>>> origin/main

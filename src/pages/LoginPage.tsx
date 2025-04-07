@@ -30,13 +30,14 @@ export const LoginPage = () => {
       <Box
         component="section"
         sx={{
-          p: 2,
-          border: "2px solid grey",
+          border: "2px solid #D0D0D5",
           borderRadius: 5,
           display: "flex",
           flexDirection: "column",
-          mx: 5,
+          mx: "auto",
           my: 2,
+          p: 2,
+          maxWidth: 500,
         }}
       >
         <TextField
@@ -48,6 +49,7 @@ export const LoginPage = () => {
           }}
         />
         <TextField
+          type="password"
           variant="standard"
           label="Password"
           sx={{ mb: 4 }}
@@ -55,7 +57,11 @@ export const LoginPage = () => {
             setPassword(e.target.value);
           }}
         />
-        <Button variant="contained" onClick={loginHandler}>
+        <Button
+          sx={{ backgroundColor: "#D0D0D5", color: "black" }}
+          variant="contained"
+          onClick={loginHandler}
+        >
           Login
         </Button>
       </Box>
@@ -63,10 +69,19 @@ export const LoginPage = () => {
         sx={{
           display: "flex",
           justifyContent: "right",
-          mx: 5,
+          mx: "auto",
+          my: 2,
+          maxWidth: 500,
         }}
       >
-        <Button variant="contained" onClick={registerHandler}>
+        <Button
+          sx={{
+            backgroundColor: "#D0D0D5",
+            color: "black",
+          }}
+          variant="contained"
+          onClick={registerHandler}
+        >
           Register
         </Button>
       </Box>
