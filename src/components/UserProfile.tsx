@@ -5,8 +5,10 @@ import { updateUserInfo } from "../services/UserService";
 
 
 function UserProfile() {
+  //Retrieve the user
   const {user} = useContext(AuthContext)!;
 
+  //Hook useState for the initial state of the user
   const [updateData, setUpdateData] = useState({
     firstName: "",
     lastName: "",
@@ -24,7 +26,7 @@ function UserProfile() {
     }
   }, [user]);
 
-  //Changes the information in the field
+  //Changes the information in the field / stores the new information
   const changeInfoField = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUpdateData(prev => ({

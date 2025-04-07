@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  
   const updateUser = async (updatedUser: User) =>{
     const response = await updateUserInfo(updatedUser);
     if(response.ok){
