@@ -5,10 +5,6 @@
  * We create a context (AuthContext) and a provider (AuthProvider).
  */
 
-<<<<<<< HEAD
-import { createContext, useEffect, useState } from "react";
-import { loginUser, registerUser, logoutUser, checkUserSession } from "../services/AuthService";
-=======
 import { createContext, useState } from "react";
 import {
   loginUser,
@@ -16,22 +12,11 @@ import {
   logoutUser,
   checkUserSession,
 } from "../services/AuthService";
->>>>>>> origin/main
 import { updateUserInfo } from "../services/UserService";
 import { User } from "../models/User";
 
 // A type to to represent our context
 interface AuthContextType {
-<<<<<<< HEAD
-    user: User | null;
-    login: (email: string, password: string) => Promise<void>;
-    register: (email:string, password:string,firstName: string,
-      lastName: string,
-      phoneNumber: string ) => Promise<void>;
-    logout: () => Promise<void>;
-    checkSession: () => Promise<boolean>;
-    updateUser: (updatedUser: User) => Promise<void>;
-=======
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   register: (
@@ -44,7 +29,6 @@ interface AuthContextType {
   updateUser: (userId: number, user: any) => Promise<void>;
   logout: () => Promise<void>;
   checkSession: () => Promise<boolean>;
->>>>>>> origin/main
 }
 
 // 1) Create a new context with an initial value of null
@@ -119,20 +103,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  
-  const updateUser = async (updatedUser: User) =>{
-    const response = await updateUserInfo(updatedUser);
-    if(response.ok){
-      const userData = await response.json();
-      setUser(userData);
-    }
-    else{
-      setUser(null);
-    }
-  }
-
-
-
   /**
    * We wrap our app (children) in AuthContext.Provider,
    * passing { user, login } as the value.
@@ -140,13 +110,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
    * to access or update user data (through login).
    */
   return (
-<<<<<<< HEAD
-    <AuthContext.Provider value={{ user, login, register, logout, checkSession, updateUser}}>
-=======
     <AuthContext.Provider
       value={{ user, login, register, updateUser, logout, checkSession }}
     >
->>>>>>> origin/main
       {children}
     </AuthContext.Provider>
   );

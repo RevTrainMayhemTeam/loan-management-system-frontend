@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-
-const API_BASE_URL = "http://localhost:8080/api";
-
-export const getLoans = async (userId:number) => {
-  
-  
-  return fetch(`${API_BASE_URL}/loans/user/${userId}`, {
-=======
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Loan } from "../models/Loan";
 
@@ -60,12 +49,7 @@ export const rejectLoan = async (loanId: number) =>
 
 export const getTypes = async () =>
   fetch(`${API_BASE_URL}/api/loan-types`, {
->>>>>>> origin/main
     method: "GET",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
   });
-<<<<<<< HEAD
-};
-=======
->>>>>>> origin/main
