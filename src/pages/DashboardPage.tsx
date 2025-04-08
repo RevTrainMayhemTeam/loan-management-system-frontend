@@ -17,7 +17,7 @@ export const Dashboard = () => {
   const renderComponent = (userRole: string) => {
     switch (selectedOption) {
       case 0:
-        return <Welcome />;
+        return <Hello />;
       case 1:
         if (userRole === "Customer") {
           return <LoansCustomer />;
