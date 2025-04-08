@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       phoneNumber,
     });
     if (response.ok) {
-      // const userData = await response.json();
+      //const userData = await response.json();
       setUser(null);
     }
   };
