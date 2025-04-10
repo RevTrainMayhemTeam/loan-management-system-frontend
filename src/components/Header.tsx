@@ -27,7 +27,7 @@ export const Header = () => {
       }}
     >
       <Box sx={{ mx: 1, display: "flex", alignItems: "center", mr: "auto" }}>
-        <Typography variant="subtitle1">Loan Management System</Typography>
+        <Typography variant="subtitle1">Loan Management System __JENKINS TEST__</Typography>
       </Box>
       {user ? (
         <Box sx={{ mx: 1, display: "flex", alignItems: "center" }}>
